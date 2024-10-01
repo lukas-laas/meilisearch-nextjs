@@ -1,5 +1,6 @@
 "use client";
 import { MeiliSearch } from "meilisearch";
+import Image from "next/image";
 import movies from "./movies.json";
 import { useState } from "react";
 
@@ -35,10 +36,20 @@ export default function Home() {
             .then((res) => setResults(res))
         }
       />
-      <ul>
+      <ul className="flex flex-col p-4 gap-4">
         {results &&
           results.hits.map((result) => {
-            return <li key={result.id}>{result.title}</li>;
+            return (
+              <div>
+                <Image
+                  src={result.poster}
+                  alt="poster"
+                  width={150}
+                  height={150}
+                />
+                <li key={result.id}>{result.title}</li>
+              </div>
+            );
           })}
       </ul>
     </div>
