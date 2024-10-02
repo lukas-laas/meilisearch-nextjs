@@ -3,7 +3,11 @@ import { MeiliSearch } from "meilisearch";
 import Image from "next/image";
 import movies from "./movies.json";
 import { useState } from "react";
-import { addDeveoper } from "@/actions";
+import {
+  addDeveoper,
+  clearSearchDbAction,
+  rebuildSearchDbAction,
+} from "@/actions";
 
 export default function Home() {
   const [results, setResults] = useState<any>(null);
@@ -33,6 +37,12 @@ export default function Home() {
         <input type="text" name="name" />
         <button type="submit">submit</button>
       </form>
+      <form action={clearSearchDbAction}>
+        <button type="submit">clear search db</button>
+      </form>
+      <form action={rebuildSearchDbAction}>
+        <button type="submit">rebuild search db</button>
+      </form>
       <div>
         <h2>search</h2>
         <input
@@ -40,7 +50,7 @@ export default function Home() {
           className="text-black"
           onChange={(q) =>
             client
-              .index("movies")
+              .index("developers")
               .search(q.target.value)
               .then((res) => setResults(res))
           }
@@ -50,13 +60,7 @@ export default function Home() {
             results.hits.map((result) => {
               return (
                 <div>
-                  <Image
-                    src={result.poster}
-                    alt="poster"
-                    width={150}
-                    height={150}
-                  />
-                  <li key={result.id}>{result.title}</li>
+                  <li key={result.id}>{result.name}</li>
                 </div>
               );
             })}

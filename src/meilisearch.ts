@@ -12,6 +12,7 @@ export async function clearSearchDb() {
 
 async function buildSearchDb() {
   const developers = await getDevelopersQuery();
+  console.log(developers);
 
   client
     .index("developers")
