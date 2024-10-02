@@ -1,6 +1,10 @@
 "use server";
 
-import { clearSearchDb, rebuildSearchDb } from "./meilisearch";
+import {
+  clearSearchDb,
+  rebuildSearchDb,
+  searchDevelopers,
+} from "./meilisearch";
 import { addDeveloperMutation } from "./queries";
 
 export async function addDeveoper(name: string) {
@@ -13,4 +17,9 @@ export async function clearSearchDbAction() {
 
 export async function rebuildSearchDbAction() {
   await rebuildSearchDb();
+}
+
+export async function searchAction(query: string) {
+  const result = await searchDevelopers(query);
+  return result;
 }

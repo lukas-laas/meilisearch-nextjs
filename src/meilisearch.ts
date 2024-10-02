@@ -25,3 +25,9 @@ export async function rebuildSearchDb() {
   await buildSearchDb();
   return console.log("rebuilt search database");
 }
+
+export async function searchDevelopers(query: string) {
+  const result = await client.index("developers").search(query);
+
+  return result;
+}
